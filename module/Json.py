@@ -26,14 +26,13 @@ class Json:
             temp.append(y)
             self.write(data)
 
-    def remove(self,user,domain):
+    def removeByName(self,user,domain):
         with open(self.file) as json_file:
             data = json.load(json_file)
             data = data["website"]
             for i in range(len(data)):
                 i = i-1
                 try:
-                    # print(data[i])
                     try:
                         if(data[i] == {"user": user, "domain": domain}):
                             print(f"> Usunięto! {data[i]['domain']}")
@@ -46,10 +45,25 @@ class Json:
             data = { "website" : data}
             self.write(data)
 
+    def removeById(self,id):
+        with open(self.file) as json_file:
+            data = json.load(json_file)
+            data = data["website"]
+            data.remove(data[id])
+            data = { "website" : data}
+            self.write(data)
+
     def read(self):
+        print("=== WEBSITE ===")
+        print("| ID | User | Domain |")
         with open(self.file) as json_file:
             data = json.load(json_file)
             temp = data["website"]
+            i=0
             for element in temp:
-                print(f"User: {element['user']} Domain {element['domain']}")
+                if(i==0):
+                    print("")
+                else:
+                    print(f"| {i} | {element['user']} | {element['domain']} |")
+                i=i+1
 

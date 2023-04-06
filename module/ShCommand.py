@@ -1,5 +1,7 @@
 import subprocess
+
 class ShCommand:
+
     def __init__(self, cmd):
         self.cmd = cmd
 
@@ -9,5 +11,6 @@ class ShCommand:
             return result.stdout
         except subprocess.CalledProcessError as e:
             return e.stderr
+
     def printSh(self):
         print(self.execute())
