@@ -49,7 +49,6 @@
 <div class="wrapper">
     <div class="box">
         <h1><?php echo $_SERVER['SERVER_NAME']; ?></h1>
-        <p class="info">Strona została zainstalowana!</p>
     </div>
 </div>
 </body>
