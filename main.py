@@ -1,6 +1,8 @@
 import module.ShCommand as Shell
 import module.Json as json
 
+main_domain = "banankox.pl"
+
 cmd = Shell.ShCommand("ls -l")
 cmd.printSh()
 

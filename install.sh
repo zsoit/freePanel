@@ -2,11 +2,18 @@
 
 # installer Python.sh
 
-# install
+# install apachwe2 php8
 if ! dpkg -s apache2 >/dev/null 2>&1; then
     sudo apt update
     sudo apt install apache2 -y
     echo "Package apache2 installed successfully"
+
+    sudo apt-get install software-properties-common
+    sudo add-apt-repository ppa:ondrej/php
+    sudo apt-get update
+    sudo apt-get install php8.0 libapache2-mod-php8.0
+    sudo systemctl restart apache2
+
 else
     echo "Package apache2 is already installed"
 fi
