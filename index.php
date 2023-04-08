@@ -7,12 +7,5 @@ include_once 'CONFIG.php';
 <h1>WWWW Apache SFTP </h1>
 
 <?php include_once 'src/class/Main.php'; ?>
-<pre>
 
-    <?php
-// $contents = file_get_contents('');
-$contents = "sh sh/add.sh";
-echo shell_exec($contents);
-// ?>
-</pre>
 <?php include 'src/public/footer.php'; ?>

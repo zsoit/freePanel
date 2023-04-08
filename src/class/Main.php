@@ -21,6 +21,11 @@ $db = new MyDB();
 $HOST = "Host: " . SERVER_HOST;
 $PORT = "Port: " . SERVER_PORT;
 
+echo "<h2>Console: </h2><pre>";
+$contents = "sh sh/add.sh";
+echo shell_exec($contents);
+echo "</pre>";
+
 echo <<<HTML
 
 <div>
@@ -48,7 +53,6 @@ echo <<<HTML
     <tr>
         <th>User</th>
         <th>Domain</th>
-        <th>Date</th>
     </tr>
 
 HTML;
