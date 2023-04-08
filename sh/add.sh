@@ -22,7 +22,7 @@ rm -rf /etc/apache2/sites-available/${domain}-le-ssl.conf
 
 #UZYTKOWNIK
 groupadd -f ${name}
-useradd -g ${name} ${name}
+useradd -g ${name} ${name}``
 usermod -g sftp_users -d /www/${name} -s /dev/null ${name}
 #usermod -g www-data ${name}
 echo "${name}:${password}" | chpasswd
