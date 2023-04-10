@@ -1,0 +1,70 @@
+.section_primary {
+    display: flex;
+}
+
+.section_primary__item {
+    flex: 50%;
+    margin: 15px;
+    padding: 10px;
+}
+
+h2 {
+    color: gold;
+    font-size: 30px;
+    text-transform: uppercase;
+}
+
+
+/* menu */
+
+.menu {
+    display: flex;
+    list-style: none;
+    padding: 20px;
+}
+
+.menu__item {
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+.btn {
+    font-size: 13px;
+}
+
+.btn:hover {
+    color: black;
+    background-color: lightblue !important;
+}
+
+.userList__item:hover td {
+    color: white;
+    background-color: black !important;
+}
+
+.userList__item td {
+    /* background-color: aliceblue; */
+    padding: 20px;
+    margin: 20px;
+}
+
+.btn__delete {
+    color: rgb(255, 129, 129);
+}
+
+.btn__change_password {
+    color: rgb(86, 252, 86);
+}
+
+.btn__add {
+    color: yellow;
+}
+
+.add_form__checkbox {
+    padding: 10px 0;
+}
+
+pre {
+    background-color: black;
+    padding: 10px;
+}

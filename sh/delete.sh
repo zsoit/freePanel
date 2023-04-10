@@ -7,6 +7,14 @@ echo "============================="
 name=$1
 domain=$2
 
+
+if [ -z "$name"  ] || [ -z "$domain"  ]
+then
+    echo "Variables error !"
+    exit 1
+fi
+
+
 #USUWA
 killall -u ${name}
 userdel -f ${name}

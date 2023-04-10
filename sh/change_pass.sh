@@ -9,6 +9,14 @@ echo "============================"
 name=$1
 password=$2
 
+
+if [ -z "$name"  ] || [ -z "$password"  ]
+then
+    echo "Variables error !"
+    exit 1
+fi
+
+
 echo "${name}:${password}" | chpasswd
 
 echo "> Haslo dla ${name} zostalo zmienione!"

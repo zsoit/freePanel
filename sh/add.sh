@@ -4,15 +4,20 @@ echo "========================="
 echo "=   ADD WEBSITE & SFTP  ="
 echo "========================="
 
-$name=$1
-$password=$2
-$domain=$3
+
+name=$1
+password=$2
+domain=$3
 
 if [ -z "$name"  ] || [ -z "$password"  ] || [ -z "$domain"  ]
 then
-    echo "Variable error! "
+    echo "Variables error !"
     exit 1
 fi
+
+
+
+echo $name $password $domain
 
 # USUWA JESLI JEST
 userdel -f ${name}
