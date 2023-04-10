@@ -22,3 +22,4 @@ rm -rf /www/${name}/
 rm -rf /etc/apache2/sites-available/${domain}.conf
 rm -rf /etc/apache2/sites-available/${domain}-le-ssl.conf
 # certbot delete --cert-name ${domain}
+

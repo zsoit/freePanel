@@ -55,4 +55,4 @@ echo "
 </VirtualHost>
 " > /etc/apache2/sites-available/${domain}.conf
 cd /etc/apache2/sites-available/; a2ensite ${domain}.conf
-systemctl restart apache2
+sleep 2s && systemctl reload apache2

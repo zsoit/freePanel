@@ -22,7 +22,7 @@ class HtmlTemplate
                 <input type="text" name="domain" id="domain" value="{$DOMAIN}">
 
                 <div class="add_form__checkbox">
-                    <input type="checkbox" name="randomPassword" id="randomPassword">
+                    <input type="checkbox" name="randomPassword" id="randomPassword" onclick="generatePassword()">
                     <label for="randomPassword">Random Password</label>
                     <br>
                     <input type="checkbox" name="defult_domain" id="defultDomain" checked>
@@ -34,6 +34,21 @@ class HtmlTemplate
                     </button>
                 </form>
         </section>
+
+        <script>
+            function generatePassword() {
+                var passwordLength = 25;
+                var characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-={}[]|;:,.<>?";
+                var password = "";
+
+                for (var i = 0; i < passwordLength; i++) {
+                    var randomIndex = Math.floor(Math.random() * characterSet.length);
+                    password += characterSet[randomIndex];
+                }
+
+                document.getElementById("password").value = password;
+            }
+            </script>
 
         HTML;
     }

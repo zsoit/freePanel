@@ -39,14 +39,42 @@ class DbQuery
         SQL;
 
         $info = <<<HTML
-        New user was added!
+         <br>
+            <div>
+                New user was added!
+        </div>
         <br>
-        Host: {$HOST}
-        User: {$data['name']}
-        Password: {$data['password']}
-        Port: {$PORT}
-        <br>
-        WWW: https://{$data['domain']} <br>
+        <button onclick="copyToClipboard()" style="float: right;">Copy</button>
+        <div id="info">
+            == SFTP ACCOUNT ===
+            Host: {$HOST}
+            User: {$data['name']}
+            Password: {$data['password']}
+            Port: {$PORT}
+            WWW: <a href="https://{$data['domain']}" target="_blank">https://{$data['domain']}</a> <br>
+        </div>
+        <script>
+        function copyToClipboard() {
+        var textToCopy = document.getElementById("info").innerText;
+
+        // Tworzenie tymczasowego elementu textarea
+        var tempTextarea = document.createElement("textarea");
+        tempTextarea.value = textToCopy;
+
+        // Dodanie elementu do DOM
+        document.body.appendChild(tempTextarea);
+
+        // Zaznaczenie tekstu w elemencie
+        tempTextarea.select();
+
+        // Kopiowanie tekstu do schowka
+        document.execCommand("copy");
+
+        // Usunięcie tymczasowego elementu z DOM
+        document.body.removeChild(tempTextarea);
+        }
+        </script>
+
         HTML;
 
         HtmlTemplate::ConsoleLog($info);
