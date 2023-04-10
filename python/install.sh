@@ -6,6 +6,7 @@
 if ! dpkg -s apache2 >/dev/null 2>&1; then
     sudo apt update
     sudo apt install apache2 -y
+    sudo apt install php-sqlite3
     echo "Package apache2 installed successfully"
 
     sudo apt-get install software-properties-common

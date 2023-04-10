@@ -1,5 +1,5 @@
 <header>
-    <a href="index.php">
+    <a href="?home">
         <h1><i class="fa-brands fa-php"></i> <?PHP echo TITLE_APP; ?></h1>
     </a>
     <p>
@@ -9,20 +9,20 @@
 </header>
 <nav>
     <ul class="menu">
-        <a href="index.php?action=home">
+        <a href="?action=home">
             <li class="menu__item">
                 <i class="fa-solid fa-house-chimney"></i>
                 Home
             </li>
         </a>
-        <a href="index.php?action=add_form">
+        <a href="?action=add_form">
             <li class="menu__item">
                 <i class="fa-solid fa-user-plus"></i>
                 Add
             </li>
         </a>
 
-        <a href="index.php?action=backup_form">
+        <a href="?action=backup_form">
             <li class="menu__item">
                 <i class="fa-solid fa-database"></i>
                 Backup
