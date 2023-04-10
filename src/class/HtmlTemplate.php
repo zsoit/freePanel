@@ -13,10 +13,10 @@ class HtmlTemplate
             <form action="index.php?action=add" class="add_form" method="POST">
 
                 <label for="user">User</label>
-                <input type="user" name="user" id="name">
+                <input type="user" name="user" id="name" required>
 
                 <label for="password">Password</label>
-                <input type="text" name="password" id="password">
+                <input type="text" name="password" id="password" required>
 
                 <label for="domain">Domain</label>
                 <input type="text" name="domain" id="domain" value="{$DOMAIN}">
@@ -71,6 +71,7 @@ class HtmlTemplate
         <table>
                 <tr>
                     <th>User ID</th>
+                    <th>Name</th>
                     <th>Domain</th>
                 </tr>
         HTML;

@@ -20,11 +20,16 @@ class DbQuery
 
     public function getUsers(): object
     {
-        return $this->conn->query("SELECT * FROM USERS");
+        $sql = <<<SQL
+        SELECT * FROM "users" ORDER BY "id" DESC
+        SQL;
+        return $this->conn->query($sql);
     }
 
     public function insertIntoUser($data): void
     {
+        $HOST = SERVER_HOST;
+        $PORT = SERVER_PORT;
         $sql = <<<SQL
         INSERT INTO "users"
             ("id","name","domain","date")
@@ -34,8 +39,14 @@ class DbQuery
         SQL;
 
         $info = <<<HTML
-        Dodano użytkownika {$data['name']} <br>
-        Domena WWW https://{$data['domain']} <br>
+        New user was added!
+        <br>
+        Host: {$HOST}
+        User: {$data['name']}
+        Password: {$data['password']}
+        Port: {$PORT}
+        <br>
+        WWW: https://{$data['domain']} <br>
         HTML;
 
         HtmlTemplate::ConsoleLog($info);

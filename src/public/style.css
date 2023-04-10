@@ -14,6 +14,15 @@ h2 {
     text-transform: uppercase;
 }
 
+.header__bold {
+    color: rgb(86, 252, 86);
+    font-weight: bold;
+}
+
+.header__bold__red {
+    color: red;
+}
+
 
 /* menu */
 
@@ -24,6 +33,7 @@ h2 {
 }
 
 .menu__item {
+    font-size: 15px;
     padding: 10px;
     text-transform: uppercase;
 }

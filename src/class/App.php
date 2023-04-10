@@ -25,6 +25,7 @@ class App
             $data = array();
             $data['name'] = $user;
             $data['domain'] = $domain;
+            $data['password'] = $password;
             $data['date'] = $this->Data->getCurrentDate();
 
             $query->insertIntoUser($data);
