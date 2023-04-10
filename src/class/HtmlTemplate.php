@@ -10,7 +10,7 @@ class HtmlTemplate
         <h2>Add SFTP+WEBSITE</h2>
 
         <section class="form">
-            <form action="index.php?action=add" class="add_form" method="POST">
+            <form action="?action=add" class="add_form" method="POST">
 
                 <label for="user">User</label>
                 <input type="user" name="user" id="name" required>
