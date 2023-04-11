@@ -61,7 +61,7 @@ class HtmlTemplate
         <tr class="userList__item">
             <td>{$row['id']}</td>
             <td>{$row['name']}</td>
-            <td><a href="$DOMAIN" target="_blank" >$DOMAIN</a></td>
+            <td><a href="$DOMAIN" target="_blank" >{$row['domain']}</a></td>
             <td>
                 <a href="?action=delete&id={$row['id']}">
                     <button class="btn btn__delete">
@@ -100,9 +100,39 @@ class HtmlTemplate
         HTML;
     }
 
+    public static function confirmDelete($id,$name,$domain): void
+    {
+        echo <<<HTML
+            <h2>DELETE #$id</h2>
+            <p>
+                Are you sure? Can you delete user <b class="gold">$name</b> and domain <b class="gold">$domain</b>?
+
+            </p>
+            <p>ATTENTION! All data from www folder will be delete!</p>
+            <a href='?action=delete&id=$id&confirm=true'>
+                <button class='btn btn__change_password'>
+                    <i class="fa-solid fa-check"></i>
+                    Confirm
+                </button>
+            </a>
+
+            <a href='?home'>
+                <button class='btn btn__delete'>
+                    <i class="fa-solid fa-xmark"></i>
+                    Cancel
+                </button>
+            </a>
+
+
+
+            HTML;
+    }
+
+
     public static function Console($contents): void
     {
         echo "<pre>";
+        echo "<h3>SERVER LOGS</h3>";
         echo shell_exec($contents);
         echo "</pre>";
 
@@ -113,5 +143,62 @@ class HtmlTemplate
         echo "<h2>Console</h2>";
         echo "<pre>$message</pre>";
     }
+
+    public static function ConsoleAccoutInfo($data)
+    {
+        $HOST = SERVER_HOST;
+        $PORT = SERVER_PORT;
+
+        return <<<HTML
+        <h3 class="center-text">New user was added!</h3>
+        <button onclick="copyToClipboard()" class="btn btn__copy">
+            <span>
+                <i class="fa-solid fa-copy"></i> Copy
+            </span>
+        </button>
+        <div id="info">
+            == SFTP ACCOUNT ===
+            Host: {$HOST}
+            User: {$data['name']}
+            Password: {$data['password']}
+            Port: {$PORT}
+            WWW: <a href="https://{$data['domain']}" target="_blank">https://{$data['domain']}</a> <br>
+        </div>
+        <script>
+        function copyToClipboard() {
+            var textToCopy = document.getElementById("info").innerText;
+
+            // Tworzenie tymczasowego elementu textarea
+            var tempTextarea = document.createElement("textarea");
+            tempTextarea.value = textToCopy;
+
+            // Dodanie elementu do DOM
+            document.body.appendChild(tempTextarea);
+
+            // Zaznaczenie tekstu w elemencie
+            tempTextarea.select();
+
+            // Kopiowanie tekstu do schowka
+            document.execCommand("copy");
+
+            // Usunięcie tymczasowego elementu z DOM
+            document.body.removeChild(tempTextarea);
+            }
+        </script>
+
+        HTML;
+    }
+
+    public static function JSsetTitle($id,$title): void
+    {
+        echo <<<HTML
+        <script>
+            document.querySelector("#$id").style.color="gold";
+            document.title=document.title + " - $title";
+        </script>
+        HTML;
+
+    }
+
 
 }

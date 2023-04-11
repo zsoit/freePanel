@@ -1,50 +1,88 @@
-.section_primary {
-    display: flex;
+:root {
+    --COLOR_RED: rgb(255, 129, 129);
+    --COLOR_GREEN: rgb(86, 252, 86);
+    --COLOR_YELLOW: gold;
+    --COLOR_LIGHT_BLUE: lightblue;
+    --COLOR_DARK: rgb(22, 31, 39);
 }
 
-.section_primary__item {
-    flex: 50%;
-    margin: 15px;
-    padding: 10px;
-}
+
+/* HEADER */
 
 h2 {
-    color: gold;
+    color: var(--COLOR_YELLOW);
     font-size: 30px;
     text-transform: uppercase;
 }
 
+h3 {
+    color: var(--COLOR_GREEN);
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.gold {
+    color: var(--COLOR_YELLOW);
+    text-transform: lowercase;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.alert_bg {
+    background-color: var(--COLOR_DARK);
+    padding: 20px;
+    border-radius: 20px;
+}
+
 .header__bold {
-    color: rgb(86, 252, 86);
+    color: var(--COLOR_GREEN);
     font-weight: bold;
 }
 
 .header__bold__red {
-    color: red;
+    color: var(--COLOR_RED);
 }
 
 
-/* menu */
+/*MENU */
 
 .menu {
     display: flex;
     list-style: none;
-    padding: 20px;
+    /* padding: 20px; */
+    background: var(--COLOR_DARK);
 }
 
 .menu__item {
     font-size: 15px;
-    padding: 10px;
+    padding: 15px;
     text-transform: uppercase;
+    color: whitesmoke;
 }
 
-.btn {
-    font-size: 13px;
+.menu__item:hover {
+    color: var(--COLOR_YELLOW);
 }
 
-.btn:hover {
-    color: black;
-    background-color: lightblue !important;
+
+/* USER_LIST */
+
+.userList__item .btn {
+    background: transparent !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .userList__item {
+        font-size: 10px;
+        margin: 0px;
+    }
+    .userList__item .btn {
+        background: transparent;
+        font-size: 10px;
+        padding: 0px;
+    }
 }
 
 .userList__item:hover td {
@@ -54,25 +92,52 @@ h2 {
 
 .userList__item td {
     /* background-color: aliceblue; */
-    padding: 20px;
-    margin: 20px;
+    padding: 10px;
+    margin: 10px;
+}
+
+
+/* BTN */
+
+.btn {
+    font-size: 13px;
+}
+
+.btn:hover {
+    color: black;
+    background-color: var(--COLOR_LIGHT_BLUE) !important;
+}
+
+.btn__copy {
+    float: right;
+    margin: 5px;
+    padding: 5px;
+    background-color: transparent !important;
+}
+
+.btn__copy:hover {
+    background-color: transparent !important;
+    color: var(--COLOR_RED);
 }
 
 .btn__delete {
-    color: rgb(255, 129, 129);
+    color: var(--COLOR_RED);
 }
 
 .btn__change_password {
-    color: rgb(86, 252, 86);
+    color: var(--COLOR_GREEN);
 }
 
 .btn__add {
-    color: yellow;
+    color: var(--COLOR_YELLOW);
 }
 
 .add_form__checkbox {
     padding: 10px 0;
 }
+
+
+/* CONSOLE */
 
 pre {
     background-color: black;

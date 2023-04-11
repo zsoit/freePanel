@@ -16,7 +16,7 @@ class App
 
         if($user == null && $password == null)
         {
-            HtmlTemplate::ConsoleLog("Error: Puste pola!");
+            HtmlTemplate::ConsoleLog("Error: Empty !");
         }
         else
         {
@@ -41,39 +41,33 @@ class App
         $id = isset($_GET['id']) ? $_GET['id']  : null;
         $confirm = isset($_GET['confirm']) ? $_GET['confirm']  : "false";
 
+        $query = new DbQuery();
+
         if($id != null AND $confirm=="true")
         {
-            $query = new DbQuery();
             $query->deleteUser($id);
-
-            echo <<<HTML
-            <p>User was #$id deleted!!!</p>
-            HTML;
-
+            HtmlTemplate::ConsoleLog("<h3>User was #$id deleted!!!</h3>");
             $this->ListUser();
         }
         else{
-            echo <<<HTML
-            <p>Are you sure? Can you delete user #$id?</p>
-            <p>ATTENTION! All data from www folder will be delete!</p>
-            <a href='?action=delete&id=$id&confirm=true'>
-                <button>
-                    Confirm
-                </button>
-            </a>
-            HTML;
+            $result = $query->getUserById($id);
+
+            while ($row = $result->fetchArray()) {
+                HtmlTemplate::confirmDelete($id,$row['name'],$row['domain']);
+            }
+
         }
+
+        HtmlTemplate::JSsetTitle('page__delete','Delete');
+
 
 
     }
 
     public function AddForm()
     {
-        echo '<section class="section_primary">';
-        echo '<div class="section_primary__item">';
         HtmlTemplate::addForm();
-        echo '</div>';
-        echo '</section>';
+        HtmlTemplate::JSsetTitle('page__add','Add');
     }
 
     public function ListUser()
@@ -81,6 +75,8 @@ class App
         HtmlTemplate::tableList(
             'DbQuery::DisplayUsers'
         );
+        HtmlTemplate::JSsetTitle('page__home','Home');
+
     }
 
     public function Router()
