@@ -63,6 +63,8 @@ class App
         else
         {
             HtmlTemplate::confirmDelete($this->id,$name,$domain);
+            HtmlTemplate::JSsetTitle('page__delete','Delete');
+
         }
 
         HtmlTemplate::JSsetTitle('page__delete','Delete');
@@ -78,6 +80,12 @@ class App
 
     public function ListUser()
     {
+        $disk = $this->Data->getInfoDisk();
+        $ram = $this->Data->getRam();
+
+        echo "<h3>DRIVE: $disk</h3>";
+        echo "<h3>RAM: $ram</h3>";
+
         HtmlTemplate::tableList(
             'DbQuery::DisplayUsers'
         );
@@ -90,10 +98,10 @@ class App
         $query = new DbQuery();
         $data = $query->getUserById($this->id);
 
-        $disk = $this->Data->getSizeFolder("{$this->id}");
 
         $name = isset($data['name']) ? $data['name']: null ;
         $domain = isset($data['domain']) ? $data['domain']: null ;
+        $disk = $this->Data->getSizeFolder("/www/{$name}");
 
         echo <<<HTML
         <h2>User #$this->id</h2>

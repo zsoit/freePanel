@@ -19,9 +19,11 @@ class DataController
         return $domain;
     }
 
-    public function getRAM()
+    public function getRam()
     {
-        $cmd = `free -m | grep "^Mem:" | awk '{print $2"MB"}'`;
+        $cmd = <<<BASH
+        free -m | grep "^Mem:" | awk '{print $2"MB"}'
+        BASH;
         return shell_exec($cmd);
     }
 
@@ -51,7 +53,7 @@ class DataController
         $usage = $this->getDisk("avail");
         $free = $this->getDisk("used");
 
-        $result = "Disk SSD: $usage / $space GB (Free $free GB)";
+        $result = "$usage / $space GB (Free $free GB)";
 
         return $result;
     }
