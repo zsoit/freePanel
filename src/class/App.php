@@ -2,10 +2,15 @@
 class App
 {
     private $Data;
+    private $id;
+    private $confirm;
 
     public function __construct()
     {
         $this->Data = new DataController();
+
+        $this->id = isset($_GET['id']) ? $_GET['id']  : null;
+        $this->confirm = isset($_GET['confirm']) ? $_GET['confirm']  : "false";
     }
 
     private function Add()
@@ -38,28 +43,26 @@ class App
 
     private function Delete()
     {
-        $id = isset($_GET['id']) ? $_GET['id']  : null;
-        $confirm = isset($_GET['confirm']) ? $_GET['confirm']  : "false";
 
         $query = new DbQuery();
-        $data = $query->getUserById($id);
+        $data = $query->getUserById($this->id);
 
         $name = isset($data['name']) ? $data['name']: null ;
         $domain = isset($data['domain']) ? $data['domain']: null ;
 
 
-        if($id != null AND $confirm=="true" AND $name != null AND $domain != null)
+        if($this->id != null AND $this->confirm=="true" AND $name != null AND $domain != null)
         {
-            HtmlTemplate::ConsoleLog("<h3>User was #$id deleted!!!</h3>");
+            HtmlTemplate::ConsoleLog("<h3>User $name was deleted!!!</h3>");
             $sh = "sh sh/delete.sh $name $domain";
             HtmlTemplate::Console($sh);
 
-            $query->deleteUser($id);
+            $query->deleteUser($this->id);
             $this->ListUser();
         }
         else
         {
-            HtmlTemplate::confirmDelete($id,$name,$domain);
+            HtmlTemplate::confirmDelete($this->id,$name,$domain);
         }
 
         HtmlTemplate::JSsetTitle('page__delete','Delete');
@@ -82,6 +85,26 @@ class App
 
     }
 
+    function User()
+    {
+        $query = new DbQuery();
+        $data = $query->getUserById($this->id);
+
+        $disk = $this->Data->getSizeFolder("{$this->id}");
+
+        $name = isset($data['name']) ? $data['name']: null ;
+        $domain = isset($data['domain']) ? $data['domain']: null ;
+
+        echo <<<HTML
+        <h2>User #$this->id</h2>
+        <p>user: $name</p>
+        <p>domain:<a href="https://{$domain}" target="_blank"> $domain</p></a>
+        <p>Size WWW: $disk</p>
+
+
+        HTML;
+    }
+
     public function Router()
     {
 
@@ -101,6 +124,9 @@ class App
                 $this->AddForm();
                 break;
 
+            case 'user':
+                $this->User();
+                break;
             default:
                 $this->ListUser();
                 break;

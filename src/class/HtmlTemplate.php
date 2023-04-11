@@ -64,7 +64,7 @@ class HtmlTemplate
         echo <<<HTML
         <tr class="userList__item">
             <td>{$row['id']}</td>
-            <td>{$row['name']}</td>
+            <td><a href="?action=user&id={$row['id']}">{$row['name']}</a></td>
             <td><a href="$DOMAIN" target="_blank" >{$row['domain']}</a></td>
 
             <td>
