@@ -3,7 +3,7 @@ class MyDB extends SQLite3
 {
     public function __construct()
     {
-        $this->open('database/db');
+        $this->open(DATABASE);
     }
 
 }
@@ -42,12 +42,20 @@ class DbQuery
         $this->conn->query($sql);
     }
 
-    public function getUserById($id): object
+    public function getUserById($id): array
     {
         $sql = <<<SQL
         SELECT * FROM "users" WHERE id=$id
         SQL;
-        return $this->conn->query($sql);
+        $result =  $this->conn->query($sql);
+
+        $data = array();
+        // $result = $this->getUserById($id);
+        while ($row = $result->fetchArray()) {
+            $data['name'] = $row['name'];
+            $data['domain'] = $row['domain'];
+        }
+        return $data;
 
     }
 

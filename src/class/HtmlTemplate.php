@@ -13,10 +13,10 @@ class HtmlTemplate
             <form action="?action=add" class="add_form" method="POST">
 
                 <label for="user">User</label>
-                <input type="user" name="user" id="name" required>
+                <input type="user" name="user" id="name" pattern="[a-zA-Z0-9]+" pattern="[\p{L}\p{N}ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+"  required>
 
                 <label for="password">Password</label>
-                <input type="text" name="password" id="password" required>
+                <input type="text" name="password" id="password"  required>
 
                 <label for="domain">Domain</label>
                 <input type="text" name="domain" id="domain" value="{$DOMAIN}">
@@ -57,11 +57,16 @@ class HtmlTemplate
     public static function userList($row): void
     {
         $DOMAIN = "http://{$row['domain']}";
+
+
+
+
         echo <<<HTML
         <tr class="userList__item">
             <td>{$row['id']}</td>
             <td>{$row['name']}</td>
             <td><a href="$DOMAIN" target="_blank" >{$row['domain']}</a></td>
+
             <td>
                 <a href="?action=delete&id={$row['id']}">
                     <button class="btn btn__delete">

@@ -42,24 +42,27 @@ class App
         $confirm = isset($_GET['confirm']) ? $_GET['confirm']  : "false";
 
         $query = new DbQuery();
+        $data = $query->getUserById($id);
 
-        if($id != null AND $confirm=="true")
+        $name = isset($data['name']) ? $data['name']: null ;
+        $domain = isset($data['domain']) ? $data['domain']: null ;
+
+
+        if($id != null AND $confirm=="true" AND $name != null AND $domain != null)
         {
-            $query->deleteUser($id);
             HtmlTemplate::ConsoleLog("<h3>User was #$id deleted!!!</h3>");
+            $sh = "sh sh/delete.sh $name $domain";
+            HtmlTemplate::Console($sh);
+
+            $query->deleteUser($id);
             $this->ListUser();
         }
-        else{
-            $result = $query->getUserById($id);
-
-            while ($row = $result->fetchArray()) {
-                HtmlTemplate::confirmDelete($id,$row['name'],$row['domain']);
-            }
-
+        else
+        {
+            HtmlTemplate::confirmDelete($id,$name,$domain);
         }
 
         HtmlTemplate::JSsetTitle('page__delete','Delete');
-
 
 
     }
