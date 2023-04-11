@@ -82,7 +82,16 @@ class DbQuery
         $query = $this->conn->query($sql);
     }
 
-    public static function displayUsers()
+    public function deleteUser($id): void
+    {
+        $sql = <<<SQL
+        DELETE FROM "users" WHERE ("rowid" = $id)
+        SQL;
+        $query = $this->conn->query($sql);
+
+    }
+
+    public static function displayUsers(): void
     {
         $query = new DbQuery;
         $result = $query->getUsers();

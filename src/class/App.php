@@ -36,6 +36,36 @@ class App
 
     }
 
+    private function Delete()
+    {
+        $id = isset($_GET['id']) ? $_GET['id']  : null;
+        $confirm = isset($_GET['confirm']) ? $_GET['confirm']  : "false";
+
+        if($id != null AND $confirm=="true")
+        {
+            $query = new DbQuery();
+            $query->deleteUser($id);
+
+            echo <<<HTML
+            <p>User was #$id deleted!!!</p>
+            HTML;
+
+            $this->ListUser();
+        }
+        else{
+            echo <<<HTML
+            <p>Are you sure? Can you delete user #$id?</p>
+            <p>ATTENTION! All data from www folder will be delete!</p>
+            <a href='?action=delete&id=$id&confirm=true'>
+                <button>
+                    Confirm
+                </button>
+            </a>
+            HTML;
+        }
+
+
+    }
 
     public function AddForm()
     {
@@ -62,6 +92,10 @@ class App
         {
             case 'add':
                 $this->Add();
+                break;
+
+            case 'delete':
+                $this->Delete();
                 break;
 
             case 'add_form':

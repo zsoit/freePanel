@@ -63,10 +63,12 @@ class HtmlTemplate
             <td>{$row['name']}</td>
             <td><a href="$DOMAIN" target="_blank" >$DOMAIN</a></td>
             <td>
-                <button class="btn btn__delete">
-                    <i class="fa-solid fa-trash"></i>
-                    Delete
-                </button>
+                <a href="?action=delete&id={$row['id']}">
+                    <button class="btn btn__delete">
+                        <i class="fa-solid fa-trash"></i>
+                        Delete
+                    </button>
+                </a>
             </td>
             <td>
                 <button  class="btn btn__change_password">
