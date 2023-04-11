@@ -19,12 +19,42 @@ class DataController
         return $domain;
     }
 
-    public function getRam()
+
+    private function usedRam(){
+    $cmd = <<<CMD
+    free -m | awk 'NR==2{print $3" MB"}'
+    CMD;
+    return shell_exec($cmd);
+
+    }
+
+    private function freeRam()
+    {
+        $cmd = <<<CMD
+        free -m | awk 'NR==2{print $4" MB"}'
+        CMD;
+        return shell_exec($cmd);
+
+    }
+
+    private function Ram()
     {
         $cmd = <<<BASH
         free -m | grep "^Mem:" | awk '{print $2"MB"}'
         BASH;
         return shell_exec($cmd);
+    }
+
+
+    public function getRam()
+    {
+        $ram = $this->Ram();
+        $free = $this->freeRam();
+        $used = $this->usedRam();
+
+        $result = "$used/$ram (Free $free)";
+        return $result;
+
     }
 
     public function getCurrentDate()
