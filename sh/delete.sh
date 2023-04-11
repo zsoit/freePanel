@@ -21,5 +21,6 @@ userdel -f ${name}
 rm -rf /www/${name}/
 rm -rf /etc/apache2/sites-available/${domain}.conf
 rm -rf /etc/apache2/sites-available/${domain}-le-ssl.conf
-# certbot delete --cert-name ${domain}
+sleep 1s && systemctl reload apache2
+
 
