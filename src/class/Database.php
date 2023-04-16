@@ -1,5 +1,10 @@
 <?php
-class MyDB extends SQLite3
+
+namespace freePanel\Model;
+use freePanel\View\HtmlTemplate;
+use \SQLite3;
+
+class Db extends SQLite3
 {
     public function __construct()
     {
@@ -11,11 +16,11 @@ class MyDB extends SQLite3
 
 class DbQuery
 {
-    private $conn;
+    private $db;
 
     public function __construct()
     {
-        $this->conn = new MyDB();
+        $this->db = new Db();
     }
 
     public function getUsers(): object
@@ -23,7 +28,7 @@ class DbQuery
         $sql = <<<SQL
         SELECT * FROM "users" ORDER BY "id" DESC
         SQL;
-        return $this->conn->query($sql);
+        return $this->db->query($sql);
     }
 
     public function insertIntoUser($data): void
@@ -39,7 +44,7 @@ class DbQuery
         $info = HtmlTemplate::ConsoleAccoutInfo($data);
         HtmlTemplate::ConsoleLog($info);
 
-        $this->conn->query($sql);
+        $this->db->query($sql);
     }
 
     public function getUserById($id): array
@@ -47,10 +52,9 @@ class DbQuery
         $sql = <<<SQL
         SELECT * FROM "users" WHERE id=$id
         SQL;
-        $result =  $this->conn->query($sql);
+        $result =  $this->db->query($sql);
 
         $data = array();
-        // $result = $this->getUserById($id);
         while ($row = $result->fetchArray()) {
             $data['name'] = $row['name'];
             $data['domain'] = $row['domain'];
@@ -64,16 +68,7 @@ class DbQuery
         $sql = <<<SQL
         DELETE FROM "users" WHERE ("rowid" = $id)
         SQL;
-        $this->conn->query($sql);
+        $this->db->query($sql);
 
-    }
-
-    public static function displayUsers(): void
-    {
-        $query = new DbQuery;
-        $result = $query->getUsers();
-        while ($row = $result->fetchArray()) {
-            echo HtmlTemplate::userList($row);
-        }
     }
 }

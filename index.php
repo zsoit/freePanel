@@ -1,8 +1,12 @@
-<?php include_once 'CONFIG.php';?>
+<?php
 
-<?php include_once 'src/public/head.php';?>
-<?PHP require_once 'src/public/header.php'; ?>
+use freePanel\Controller\AppController;
 
-<?php include_once 'src/class/Main.php'; ?>
+include_once 'CONFIG.php';
 
-<?php include 'src/public/footer.php'; ?>
+$App = new AppController();
+
+$App->includeHTML("head");
+$App->includeHTML("header");
+$App->Router();
+$App->includeHTML("footer");

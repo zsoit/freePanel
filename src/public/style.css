@@ -51,15 +51,17 @@ h3 {
 .menu {
     display: flex;
     list-style: none;
-    /* padding: 20px; */
+    padding: 20px;
     background: var(--COLOR_DARK);
 }
 
 .menu__item {
     font-size: 15px;
-    padding: 15px;
+    padding: 15px 0px;
+    margin: 10px;
     text-transform: uppercase;
     color: whitesmoke;
+    text-align: center;
 }
 
 .menu__item:hover {
@@ -142,4 +144,15 @@ h3 {
 pre {
     background-color: black;
     padding: 10px;
+}
+
+.home {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.home__item {
+    flex: 40%;
+    margin: 5px;
+    font-size: 12px;
 }

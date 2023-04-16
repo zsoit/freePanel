@@ -16,21 +16,19 @@ then
 fi
 
 
-
 echo $name $password $domain
 
 # USUWA JESLI JEST
 userdel -f ${name}
 rm -rf /www/${name}/
 rm -rf /etc/apache2/sites-available/${domain}.conf
-rm -rf /etc/apache2/sites-available/${domain}-le-ssl.conf
 
 #UZYTKOWNIK
 groupadd -f ${name}
 useradd -g ${name} ${name}``
 usermod -g sftp_users -d /www/${name} -s /dev/null ${name}
-#usermod -g www-data ${name}
-echo "${name}:${password}" | chpasswd
+usermod -g www-data $name
+echo $name:$password | chpasswd
 
 #KATALOG
 if [ -d "/www/${name}/" ]

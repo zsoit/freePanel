@@ -1,4 +1,6 @@
 <?php
+namespace freePanel\View;
+
 class HtmlTemplate
 {
     public static function addForm(): void
@@ -53,15 +55,21 @@ class HtmlTemplate
         HTML;
     }
 
+    public static function PrimaryHeader($data)
+    {
+        echo <<<HTML
+        <h2>$data</h2>
+        HTML;
+    }
 
-    public static function userList($row): void
+    public static function userList($row)
     {
         $DOMAIN = "http://{$row['domain']}";
 
 
 
 
-        echo <<<HTML
+        return <<<HTML
         <tr class="userList__item">
             <td>{$row['id']}</td>
             <td><a href="?action=user&id={$row['id']}">{$row['name']}</a></td>
@@ -85,7 +93,7 @@ class HtmlTemplate
         HTML;
     }
 
-    public static function tableList($userListBack): void
+    public static function tableList($result): void
     {
 
         echo <<<HTML
@@ -98,7 +106,10 @@ class HtmlTemplate
                 </tr>
         HTML;
 
-        $userListBack();
+
+        while ($row = $result->fetchArray()) {
+            echo HtmlTemplate::userList($row);
+        }
 
         echo <<<HTML
         </table>
@@ -172,21 +183,14 @@ class HtmlTemplate
         <script>
         function copyToClipboard() {
             var textToCopy = document.getElementById("info").innerText;
-
-            // Tworzenie tymczasowego elementu textarea
             var tempTextarea = document.createElement("textarea");
+
             tempTextarea.value = textToCopy;
-
-            // Dodanie elementu do DOM
             document.body.appendChild(tempTextarea);
-
-            // Zaznaczenie tekstu w elemencie
             tempTextarea.select();
 
-            // Kopiowanie tekstu do schowka
             document.execCommand("copy");
 
-            // Usunięcie tymczasowego elementu z DOM
             document.body.removeChild(tempTextarea);
             }
         </script>
@@ -203,6 +207,47 @@ class HtmlTemplate
         </script>
         HTML;
 
+    }
+
+    public static function UserPage($row): void
+    {
+        echo <<<HTML
+        <h2>User #{$row['id']}</h2>
+        <p>user: {$row['name']}</p>
+        <p>domain:<a href="https://{$row['domain']}" target="_blank"> {$row['domain']} </p></a>
+        <p>Size WWW: {$row['disk']}</p>
+        HTML;
+
+    }
+
+    public static function ServerInfo($row): void
+    {
+        $HOST = SERVER_HOST;
+        $PORT = SERVER_PORT;
+        $DOMAIN = PRIMARY_DOMAIN;
+        echo <<<HTML
+
+        <section class="home">
+            <div class="home__item">
+                <fieldset>
+                    <legend>Linux Server</legend>
+                    <h4>OS: Ubuntu 20.04</h4>
+                    <h4>SSD: {$row['disk']}</h4>
+                    <h4>RAM: {$row['ram']}</h4>
+                </fieldset>
+            </div>
+
+            <div  class="home__item">
+                <fieldset>
+                    <legend>WWW + SFTP</legend>
+                    <h4>DOMAIN: $DOMAIN</h4>
+                    <h4>HOST: $HOST</h4>
+                    <h4>PORT: $PORT</h4>
+                </fieldset>
+            </div>
+
+        </section>
+        HTML;
     }
 
 

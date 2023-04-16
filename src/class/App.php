@@ -1,23 +1,47 @@
 <?php
+namespace freePanel\Controller;
+
+use freePanel\View\HtmlTemplate;
+use freePanel\Model\LinuxCommand;
+use freePanel\Model\DbQuery;
+
 class App
 {
-    private $Data;
     private $id;
     private $confirm;
+    private $dbquery;
+    private $LinuxCommand;
 
     public function __construct()
     {
-        $this->Data = new DataController();
+        $this->LinuxCommand = new LinuxCommand();
+        $this->dbquery = new DbQuery();
 
-        $this->id = isset($_GET['id']) ? $_GET['id']  : null;
-        $this->confirm = isset($_GET['confirm']) ? $_GET['confirm']  : "false";
+        $this->id = DataController::fetchGET("id");
+        $this->confirm = DataController::fetchGET("confirm");
+
     }
 
-    private function Add()
+    public function HomePage(): void
     {
-        $user = $this->Data->setPOST('user');
-        $password = $this->Data->setPOST('password');
-        $domain = $this->Data->setDomain();
+        HtmlTemplate::PrimaryHeader("Home");
+
+        $row = array();
+        $row['disk'] = $this->LinuxCommand->getInfoDisk();
+        $row['ram'] = $this->LinuxCommand->getRam();
+        HtmlTemplate::ServerInfo($row);
+
+
+        HtmlTemplate::JSsetTitle('page__home','Home');
+
+    }
+
+    public function AddPage(): void
+    {
+
+        $user = DataController::fetchPOST("user");
+        $password = DataController::fetchPOST("password");
+        $domain = DataController::setDomain();
 
         if($user == null && $password == null)
         {
@@ -25,15 +49,14 @@ class App
         }
         else
         {
-            $query = new DbQuery();
 
             $data = array();
             $data['name'] = $user;
             $data['domain'] = $domain;
             $data['password'] = $password;
-            $data['date'] = $this->Data->getCurrentDate();
+            $data['date'] = DataController::getCurrentDate();
 
-            $query->insertIntoUser($data);
+            $this->dbquery->insertIntoUser($data);
 
             $cmd = "sh sh/add.sh $user $password $domain";
             HtmlTemplate::Console($cmd);
@@ -41,24 +64,25 @@ class App
 
     }
 
-    private function Delete()
+    public function DeletePage(): void
     {
 
-        $query = new DbQuery();
-        $data = $query->getUserById($this->id);
+        $data = $this->dbquery->getUserById($this->id);
 
-        $name = isset($data['name']) ? $data['name']: null ;
-        $domain = isset($data['domain']) ? $data['domain']: null ;
+        $name = isset($data['name']) ? $data['name']: null;
+        $domain = isset($data['domain']) ? $data['domain']: null;
 
 
-        if($this->id != null AND $this->confirm=="true" AND $name != null AND $domain != null)
+        if(
+            $this->id != null AND $this->confirm == true AND $name != null AND $domain != null
+        )
         {
             HtmlTemplate::ConsoleLog("<h3>User $name was deleted!!!</h3>");
             $sh = "sh sh/delete.sh $name $domain";
             HtmlTemplate::Console($sh);
 
-            $query->deleteUser($this->id);
-            $this->ListUser();
+            $this->dbquery->deleteUser($this->id);
+            $this->ListUserPage();
         }
         else
         {
@@ -72,73 +96,40 @@ class App
 
     }
 
-    public function AddForm()
+    public function AddFormPage(): void
     {
         HtmlTemplate::addForm();
         HtmlTemplate::JSsetTitle('page__add','Add');
     }
 
-    public function ListUser()
+    public function UserPage():void
     {
-        $disk = $this->Data->getInfoDisk();
-        $ram = $this->Data->getRam();
+        $data = $this->dbquery->getUserById($this->id);
 
-        echo "<h3>DRIVE: $disk</h3>";
-        echo "<h3>RAM: $ram</h3>";
+        $row = array();
+        $row['id'] = $this->id;
+        $row['domain'] = isset($data['domain']) ? $data['domain']: null ;
+        $row['name'] = isset($data['name']) ? $data['name']: null ;
+        $row['disk'] =  $this->LinuxCommand->getSizeFolder("/www/{$row['name']}");
 
-        HtmlTemplate::tableList(
-            'DbQuery::DisplayUsers'
-        );
-        HtmlTemplate::JSsetTitle('page__home','Home');
+        HtmlTemplate::UserPage($row);
 
     }
 
-    function User()
-    {
-        $query = new DbQuery();
-        $data = $query->getUserById($this->id);
-
-
-        $name = isset($data['name']) ? $data['name']: null ;
-        $domain = isset($data['domain']) ? $data['domain']: null ;
-        $disk = $this->Data->getSizeFolder("/www/{$name}");
-
-        echo <<<HTML
-        <h2>User #$this->id</h2>
-        <p>user: $name</p>
-        <p>domain:<a href="https://{$domain}" target="_blank"> $domain</p></a>
-        <p>Size WWW: $disk</p>
-
-
-        HTML;
-    }
-
-    public function Router()
+    public function UsersPage()
     {
 
-        $page = isset($_GET['action']) ? $_GET['action']  : 'default';
-
-        switch($page)
-        {
-            case 'add':
-                $this->Add();
-                break;
-
-            case 'delete':
-                $this->Delete();
-                break;
-
-            case 'add_form':
-                $this->AddForm();
-                break;
-
-            case 'user':
-                $this->User();
-                break;
-            default:
-                $this->ListUser();
-                break;
-        }
+        $users = $this->dbquery->getUsers();
+        HtmlTemplate::tableList($users);
+        HtmlTemplate::JSsetTitle('page__users','Home');
 
     }
+
+    public function BackupPage(): void
+    {
+        HtmlTemplate::PrimaryHeader("Backup");
+        HtmlTemplate::JSsetTitle('page__backup','Backup');
+
+    }
+
 }

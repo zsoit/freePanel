@@ -2,10 +2,7 @@
     <a href="?home">
         <h1><i class="fa-brands fa-php"></i> <?PHP echo TITLE_APP; ?></h1>
     </a>
-    <p>
-       sftp: <?PHP echo SERVER_HOST; ?>:<?PHP echo SERVER_PORT; ?>
-        | domain:<?PHP echo PRIMARY_DOMAIN; ?>
-    </p>
+
 </header>
 <nav>
     <ul class="menu">
@@ -15,6 +12,14 @@
                 Home
             </li>
         </a>
+
+        <a href="?action=users">
+            <li class="menu__item" id="page__users">
+                <i class="fa-solid fa-house-chimney"></i>
+                Users
+            </li>
+        </a>
+
         <a href="?action=add_form">
             <li class="menu__item" id="page__add">
                 <i class="fa-solid fa-user-plus"></i>
@@ -22,8 +27,8 @@
             </li>
         </a>
 
-        <a href="?action=backup_form" id="page__backup">
-            <li class="menu__item">
+        <a href="?action=backup">
+            <li class="menu__item" id="page__backup">
                 <i class="fa-solid fa-database"></i>
                 Backup
             </li>
