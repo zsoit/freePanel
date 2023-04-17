@@ -1,8 +1,17 @@
-CREATE TABLE users (
+CREATE TABLE users
+(
   id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
   name TEXT UNIQUE NOT NULL,
   domain TEXT UNIQUE NOTL NULL,
   data TEXT
+);
+
+CREATE TABLE proxy
+(
+  id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  name TEXT,
+  localhost_port TEXT,
+  domain TEXT
 );
 
 

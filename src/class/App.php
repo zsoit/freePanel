@@ -25,7 +25,6 @@ class App
     public function HomePage(): void
     {
         HtmlTemplate::PrimaryHeader("Home");
-
         $row = array();
         $row['disk'] = $this->LinuxCommand->getInfoDisk();
         $row['ram'] = $this->LinuxCommand->getRam();
@@ -82,7 +81,7 @@ class App
             HtmlTemplate::Console($sh);
 
             $this->dbquery->deleteUser($this->id);
-            $this->ListUserPage();
+            $this->UsersPage();
         }
         else
         {

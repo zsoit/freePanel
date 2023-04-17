@@ -13,7 +13,6 @@ class Db extends SQLite3
 
 }
 
-
 class DbQuery
 {
     private $db;
