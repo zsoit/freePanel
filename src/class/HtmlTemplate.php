@@ -234,6 +234,7 @@ class HtmlTemplate
                     <h4>OS: Ubuntu 20.04</h4>
                     <h4>SSD: {$row['disk']}</h4>
                     <h4>RAM: {$row['ram']}</h4>
+                    <h4>IPv6: xxxxxxxx:xxxx </h4>
                 </fieldset>
             </div>
 
@@ -243,10 +244,28 @@ class HtmlTemplate
                     <h4>DOMAIN: $DOMAIN</h4>
                     <h4>HOST: $HOST</h4>
                     <h4>PORT: $PORT</h4>
+                    <h4> dd</h4>
                 </fieldset>
             </div>
 
         </section>
+        HTML;
+    }
+
+    public static function BackupList()
+    {
+        echo <<<HTML
+        <table>
+            <tr>
+                <th>User</th>
+                <th>Last backup</th>
+
+            </tr>
+            <tr>
+                <td>test</td>
+                <td>2002-02-20</td>
+            </tr>
+        </table>
         HTML;
     }
 

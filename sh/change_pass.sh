@@ -17,6 +17,6 @@ then
 fi
 
 
-echo "${name}:${password}" | chpasswd
-
-echo "> Haslo dla ${name} zostalo zmienione!"
+# echo "${name}:${password}" | chpasswd
+echo -e "$password\n$password" | passwd $name
+echo "> Password for ${name} was changed"

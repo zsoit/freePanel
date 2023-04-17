@@ -17,35 +17,41 @@ fi
 
 echo $name $password $domain
 
+# CHECK USER EXISTS
 if id "$name" >/dev/null 2>&1; then
     echo "ERROR: THE USER $name EXISTS"
     exit 1
 fi
 
+# CHEC CATALOG EXISTS
 if [ -d "/www/${name}/" ]
 then
     echo "ERROR: THE CATALOG EXISTS!"
     exit 1
 fi
 
-# USERS
+# CREATE USER
 groupadd -f ${name}
 useradd -g ${name} ${name}
 usermod -g sftp_users -d /www/${name} -s /dev/null ${name}
-usermod -a -G www-data $name
+# usermod -a -G www-data $name
+echo "${name}:dupa" | chpasswd
 echo -e "$password\n$password" | passwd $name
-# echo "${name}:${password}" | chpasswd
 
-
+# MAKE DIRECTORY
 sudo mkdir /www/${name}/
 sudo mkdir /www/${name}/public_html
 sudo mkdir /www/${name}/private
 
+# COPY DEFAULT INDEX.PHP
 cp /root/template/index.php /www/${name}/public_html/index.php
+
+# LINUX RIGHT
 chown -R ${name}:sftp_users /www/${name}/public_html
 chown -R ${name}:sftp_users /www/${name}/private
+chmod 770 /www/${name}/public_html
 
-#KONIFGURACJA-APACHE
+# APACHE-2-CONFIGURE
 touch /etc/apache2/sites-available/${domain}.conf
 echo "
 <VirtualHost *:80>

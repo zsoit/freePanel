@@ -128,6 +128,7 @@ class App
     public function BackupPage(): void
     {
         HtmlTemplate::PrimaryHeader("Backup");
+        HtmlTemplate::BackupList();
         HtmlTemplate::JSsetTitle('page__backup','Backup');
 
     }
