@@ -57,6 +57,7 @@ class App
 
             $this->dbquery->insertIntoUser($data);
 
+            $password = "'" . $password .  "'";
             $cmd = "sh sh/add.sh $user $password $domain";
             HtmlTemplate::Console($cmd);
         }

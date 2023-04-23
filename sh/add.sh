@@ -4,7 +4,6 @@ echo "========================="
 echo "=   ADD WEBSITE & SFTP  ="
 echo "========================="
 
-
 name=$1
 password=$2
 domain=$3
@@ -30,7 +29,6 @@ then
     exit 1
 fi
 
-
 # MAKE DIRECTORY
 sudo mkdir /www/${name}/
 sudo mkdir /www/${name}/public_html
@@ -41,14 +39,14 @@ sudo useradd -m  -d /www/$name -p  $(openssl passwd -1 $password) $name
 sudo usermod -a -G sftp_users -s /dev/null $name
 
 # COPY DEFAULT INDEX.PHP
-cp /root/template/index.php /www/${name}/public_html/index.php
+sudo cp /root/template/index.php /www/${name}/public_html/index.php
 
 # LINUX RIGHT
 sudo chown -R ${name}:sftp_users /www/${name}/public_html
 sudo chown -R ${name}:sftp_users /www/${name}/private
 
 # APACHE-2-CONFIGURE
-touch /etc/apache2/sites-available/${domain}.conf
+sudo touch /etc/apache2/sites-available/${domain}.conf
 echo "
 <VirtualHost *:80>
         DocumentRoot /www/${name}/public_html/
@@ -59,4 +57,4 @@ cd /etc/apache2/sites-available/; a2ensite ${domain}.conf
 
 echo "User $name has been added!"
 
-sleep 1s && systemctl reload apache2
+sudo sleep 1s && sudo systemctl reload apache2

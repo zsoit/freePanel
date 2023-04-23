@@ -16,11 +16,11 @@ fi
 
 
 #USUWA
-killall -u ${name}
-userdel -f ${name}
-rm -rf /www/${name}/
-rm -rf /etc/apache2/sites-available/${domain}.conf
+sudo killall -u ${name}
+sudo userdel -f ${name}
+sudo rm -rf /www/${name}/
+sudo rm -rf /etc/apache2/sites-available/${domain}.conf
 # rm -rf /etc/apache2/sites-available/${domain}-le-ssl.conf
-sleep 1s && systemctl reload apache2
+sudo sleep 1s && sudo systemctl reload apache2
 
 
