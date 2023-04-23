@@ -5,6 +5,9 @@
     <a href="?action=about">
         <p>ver. <?php echo VERSION_APP ?></p>
     </a>
+    <a href="https://demo.filestash.app/login" target="_blank">
+        <p>SFTP Login</p>
+    </a>
 </header>
 <nav>
     <ul class="menu">

@@ -37,9 +37,8 @@ sudo mkdir /www/${name}/public_html
 sudo mkdir /www/${name}/private
 
 # # CREATE USER
-
 sudo useradd -m  -d /www/$name -p  $(openssl passwd -1 $password) $name
-sudo usermod -a -G sftp_users $name -s /dev/null $name
+sudo usermod -a -G sftp_users -s /dev/null $name
 
 # COPY DEFAULT INDEX.PHP
 cp /root/template/index.php /www/${name}/public_html/index.php

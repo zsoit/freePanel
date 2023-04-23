@@ -18,7 +18,7 @@ class HtmlTemplate
                 <input type="user" name="user" id="name" pattern="[a-zA-Z0-9]+" pattern="[\p{L}\p{N}ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+"  required>
 
                 <label for="password">Password</label>
-                <input type="text" name="password" id="password"  required>
+                <input type="text" name="password" id="password" pattern="()" required>
 
                 <label for="domain">Domain</label>
                 <input type="text" name="domain" id="domain" value="{$DOMAIN}">
@@ -40,7 +40,7 @@ class HtmlTemplate
         <script>
             function generatePassword() {
                 var passwordLength = 25;
-                var characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-={}[]|;:,.<>?";
+                var characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_+-={}[]|;:,.<>?";
                 var password = "";
 
                 for (var i = 0; i < passwordLength; i++) {
