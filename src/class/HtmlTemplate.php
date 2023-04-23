@@ -97,7 +97,8 @@ class HtmlTemplate
     {
 
         echo <<<HTML
-        <h2>User list</h2>
+        <h2>Users list</h2>
+        <section>
         <table>
                 <tr>
                     <th>User ID</th>
@@ -113,6 +114,7 @@ class HtmlTemplate
 
         echo <<<HTML
         </table>
+        </section>
         HTML;
     }
 
@@ -120,6 +122,7 @@ class HtmlTemplate
     {
         echo <<<HTML
             <h2>DELETE #$id</h2>
+            <section>
             <p>
                 Are you sure? Can you delete user <b class="gold">$name</b> and domain <b class="gold">$domain</b>?
 
@@ -138,8 +141,7 @@ class HtmlTemplate
                     Cancel
                 </button>
             </a>
-
-
+            </section>
 
             HTML;
     }
@@ -227,6 +229,9 @@ class HtmlTemplate
         $DOMAIN = PRIMARY_DOMAIN;
         echo <<<HTML
 
+        <section>
+            Users | Add | Backup | Proxy
+        </section>
         <section class="home">
             <div class="home__item">
                 <fieldset>
@@ -252,7 +257,7 @@ class HtmlTemplate
         HTML;
     }
 
-    public static function BackupList()
+    public static function BackupList(): void
     {
         echo <<<HTML
         <table>
@@ -266,6 +271,45 @@ class HtmlTemplate
                 <td>2002-02-20</td>
             </tr>
         </table>
+        HTML;
+    }
+
+    public static function About(): void
+    {
+        $ver = VERSION_APP;
+        echo <<<HTML
+        <section>
+            <div class="info">
+                <h3>freePanel - ver. $ver</h3>
+                <p><b>freePanel</b> is a simple web interface for managment SFTP users, sudomain website on the linux machine.</p>
+                <p>Used technology: PHP 7.4+, PHP SQLite3, Apache2 and Bash .sh scripts</p>
+                <p>Required: Debian/Ubuntu Server</p>
+                <h3>License</h3>
+                <p class="license_mit">
+                MIT License
+
+                Copyright (c) 2023 JA
+
+                Permission is hereby granted, free of charge, to any person obtaining a copy
+                of this software and associated documentation files (the "Software"), to deal
+                in the Software without restriction, including without limitation the rights
+                to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+                copies of the Software, and to permit persons to whom the Software is
+                furnished to do so, subject to the following conditions:
+
+                The above copyright notice and this permission notice shall be included in all
+                copies or substantial portions of the Software.
+
+                THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+                AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+                SOFTWARE.
+                </p>
+            </div>
+        </section>
         HTML;
     }
 

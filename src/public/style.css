@@ -9,10 +9,31 @@
 
 /* HEADER */
 
+header {
+    text-align: center;
+}
+
+header p {
+    font-size: 10px;
+}
+
+section {
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid var(--COLOR_DARK);
+    display: flex;
+    justify-content: center;
+}
+
 h2 {
     color: var(--COLOR_YELLOW);
+    background: var(--COLOR_DARK);
+    border-radius: 10px;
     font-size: 30px;
+    padding: 20px;
+    margin: 10px 0;
     text-transform: uppercase;
+    text-align: center;
 }
 
 h3 {
@@ -50,13 +71,15 @@ h3 {
 
 .menu {
     display: flex;
+    justify-content: center;
     list-style: none;
     padding: 20px;
     background: var(--COLOR_DARK);
+    border-radius: 20px;
 }
 
 .menu__item {
-    font-size: 15px;
+    font-size: 20px;
     padding: 15px 0px;
     margin: 10px;
     text-transform: uppercase;
@@ -66,6 +89,17 @@ h3 {
 
 .menu__item:hover {
     color: var(--COLOR_YELLOW);
+}
+
+.menu__item {
+    display: flex;
+    flex-direction: column;
+}
+
+.label_for_icon {
+    font-size: 10px;
+    margin: 2px;
+    color: gray;
 }
 
 
@@ -84,6 +118,15 @@ h3 {
         background: transparent;
         font-size: 10px;
         padding: 0px;
+    }
+    .menu {
+        justify-content: center;
+        margin: 0px;
+    }
+    .menu__item {
+        font-size: 25px;
+        padding: 5px 0px;
+        /* text-align: center; */
     }
 }
 
@@ -155,4 +198,8 @@ pre {
     flex: 40%;
     margin: 5px;
     font-size: 12px;
+}
+
+.license_mit {
+    white-space: pre-line;
 }

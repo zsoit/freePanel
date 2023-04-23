@@ -31,12 +31,15 @@ then
 fi
 
 # CREATE USER
-groupadd -f ${name}
-useradd -g ${name} ${name}
-usermod -g sftp_users -d /www/${name} -s /dev/null ${name}
+sudo groupadd -f ${name}
+sudo useradd -m  -d /www/$name -p  $(openssl passwd -1 $password) $name
+sudo usermod -g sftp_users -s /dev/null ${name}
+
+# useradd -g ${name} ${name}
+# sudo usermod -g sftp_users -d /www/${name} -s /dev/null ${name}
 # usermod -a -G www-data $name
-echo "${name}:dupa" | chpasswd
-echo -e "$password\n$password" | passwd $name
+# echo "${name}:dupa" | chpasswd
+# echo -e "$password\n$password" | passwd $name
 
 # MAKE DIRECTORY
 sudo mkdir /www/${name}/
@@ -47,9 +50,8 @@ sudo mkdir /www/${name}/private
 cp /root/template/index.php /www/${name}/public_html/index.php
 
 # LINUX RIGHT
-chown -R ${name}:sftp_users /www/${name}/public_html
-chown -R ${name}:sftp_users /www/${name}/private
-chmod 770 /www/${name}/public_html
+sudo chown -R ${name}:sftp_users /www/${name}/public_html
+sudo chown -R ${name}:sftp_users /www/${name}/private
 
 # APACHE-2-CONFIGURE
 touch /etc/apache2/sites-available/${domain}.conf

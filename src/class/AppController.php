@@ -27,6 +27,10 @@ class AppController extends App
 
             case 'backup': $this->App->BackupPage(); break;
 
+            case 'about': $this->App->AboutPage(); break;
+
+            case 'proxy': $this->App->ProxyPage(); break;
+
             default: $this->App->HomePage(); break;
         }
 

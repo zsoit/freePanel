@@ -132,4 +132,19 @@ class App
 
     }
 
+    public function AboutPage(): void
+    {
+        HtmlTemplate::PrimaryHeader("About");
+        HtmlTemplate::About();
+        HtmlTemplate::JSsetTitle('page__about','About');
+
+    }
+
+    public function ProxyPage(): void
+    {
+        HtmlTemplate::PrimaryHeader("Proxy");
+        HtmlTemplate::JSsetTitle('page__proxy','Proxy');
+
+    }
+
 }
