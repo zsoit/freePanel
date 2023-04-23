@@ -18,5 +18,7 @@ fi
 
 
 # echo "${name}:${password}" | chpasswd
-echo -e "$password\n$password" | passwd $name
+
+
+echo -e "$(openssl passwd -1 $password)\n$(openssl passwd -1 $password)" | passwd $name
 echo "> Password for ${name} was changed"

@@ -30,21 +30,16 @@ then
     exit 1
 fi
 
-# CREATE USER
-sudo groupadd -f ${name}
-sudo useradd -m  -d /www/$name -p  $(openssl passwd -1 $password) $name
-sudo usermod -g sftp_users -s /dev/null ${name}
-
-# useradd -g ${name} ${name}
-# sudo usermod -g sftp_users -d /www/${name} -s /dev/null ${name}
-# usermod -a -G www-data $name
-# echo "${name}:dupa" | chpasswd
-# echo -e "$password\n$password" | passwd $name
 
 # MAKE DIRECTORY
 sudo mkdir /www/${name}/
 sudo mkdir /www/${name}/public_html
 sudo mkdir /www/${name}/private
+
+# # CREATE USER
+
+sudo useradd -m  -d /www/$name -p  $(openssl passwd -1 $password) $name
+sudo usermod -a -G sftp_users $name -s /dev/null $name
 
 # COPY DEFAULT INDEX.PHP
 cp /root/template/index.php /www/${name}/public_html/index.php
