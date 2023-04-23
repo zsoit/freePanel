@@ -123,24 +123,26 @@ class HtmlTemplate
         echo <<<HTML
             <h2>DELETE #$id</h2>
             <section>
-            <p>
-                Are you sure? Can you delete user <b class="gold">$name</b> and domain <b class="gold">$domain</b>?
+                <div class="confirm_message">
+                    <p>
+                    Are you sure? Can you delete user <b class="gold">$name</b> and domain <b class="gold">$domain</b>?
 
-            </p>
-            <p>ATTENTION! All data from www folder will be delete!</p>
-            <a href='?action=delete&id=$id&confirm=true'>
-                <button class='btn btn__change_password'>
-                    <i class="fa-solid fa-check"></i>
-                    Confirm
-                </button>
-            </a>
+                    </p>
+                    <p>ATTENTION! All data from www folder will be delete!</p>
+                    <a href='?action=delete&id=$id&confirm=true'>
+                    <button class='btn btn__change_password'>
+                        <i class="fa-solid fa-check"></i>
+                        Confirm
+                    </button>
+                    </a>
 
-            <a href='?home'>
-                <button class='btn btn__delete'>
-                    <i class="fa-solid fa-xmark"></i>
-                    Cancel
-                </button>
-            </a>
+                    <a href='?home'>
+                    <button class='btn btn__delete'>
+                        <i class="fa-solid fa-xmark"></i>
+                        Cancel
+                    </button>
+                    </a>
+                </div>
             </section>
 
             HTML;
@@ -215,9 +217,13 @@ class HtmlTemplate
     {
         echo <<<HTML
         <h2>User #{$row['id']}</h2>
-        <p>user: {$row['name']}</p>
-        <p>domain:<a href="https://{$row['domain']}" target="_blank"> {$row['domain']} </p></a>
-        <p>Size WWW: {$row['disk']}</p>
+        <section>
+            <div class="info__user">
+                <p>user_name: {$row['name']}</p>
+                <p>domain:<a href="https://{$row['domain']}" target="_blank"> {$row['domain']} </p></a>
+                <p>Size WWW: {$row['disk']}</p>
+            </div>
+        </section>
         HTML;
 
     }
@@ -260,17 +266,20 @@ class HtmlTemplate
     public static function BackupList(): void
     {
         echo <<<HTML
-        <table>
-            <tr>
-                <th>User</th>
-                <th>Last backup</th>
+        <section>
+            </section>
+            <table>
+                <tr>
+                    <th>User</th>
+                    <th>Last backup</th>
 
-            </tr>
-            <tr>
-                <td>test</td>
-                <td>2002-02-20</td>
-            </tr>
-        </table>
+                </tr>
+                <tr>
+                    <td>test</td>
+                    <td>2002-02-20</td>
+                </tr>
+            </table>
+        </section>
         HTML;
     }
 
